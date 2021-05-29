@@ -1,0 +1,49 @@
+print ("Welcome to the monster game!")
+print ("Please enter your name")
+name = input()
+print (name)
+
+from random import randint
+
+player =  {"name":name, "attack":22, "health":100, "heal":12}
+print (player)
+monster =  {"name":"Eltempla", "attack":13, "health":100,  "heal":11}
+print(monster)
+
+def Attack(p, value):
+  p["health"] = p["health"] - value
+  if p["health"] < 0:
+    p["health"] = 0
+
+def Heal(p, value):
+  p["health"] = p["health"] + value
+  if p["health"] > 100:
+    p["health"] = 100
+
+while player["health"] > 0 or monster["health"] > 0:
+  print ("you have two options: a) attack, b) heal")
+  choice = input()
+  if choice == "a":
+    player_attack = player["heal"] + randint(0, 20)
+    print ("Player has attack: ", player_attack)
+    Attack(monster, player_attack)
+  elif choice == "b":
+    player_heal = player["attack"] + randint(0, 25)
+    Heal(player, player_heal)
+  else:
+    print("invalid choice")
+
+  if monster["health"] < 20:
+    monster_heal = monster["heal"] + randint(0, 20)
+    Heal(monster, monster_heal)
+  else:
+    monster_attack = monster["attack"] + randint(0, 25)
+    print ("Monster has attack: ", monster_attack)
+    Attack(player, monster_attack)
+
+  print("Your health", player["health"], "Monster health", monster["health"])
+
+  if player["health"] == 0:
+    print("so sad - you lost")
+  if monster["health"] == 0:
+    print("yeah - you won")
